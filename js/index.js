@@ -156,29 +156,20 @@
         address_zip: zip ? zip.value : undefined,
       };
 
-      stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            name: 'Jenny Rosen'
-          }
-        }
-      }).then(function(result) {
+      stripe.confirmSetup({
+        elements,
+        clientSecret,
+        confirmParams: {
+          // Return URL where the customer should be redirected after the SetupIntent is confirmed.
+          return_url: 'https://example.com',
+        },
+      })
+      .then(function(result) {
+        console.log(result)
         if (result.error) {
-          // Show error to your customer (for example, insufficient funds)
-          console.log(result.error.message);
-        } else {
-          // The payment has been processed!
-          if (result.paymentIntent.status === 'succeeded') {
-            // Show a success message to your customer
-            // There's a risk of the customer closing the window before callback
-            // execution. Set up a webhook or plugin to listen for the
-            // payment_intent.succeeded event that handles any business critical
-            // post-payment actions.
-          }
+          // Inform the customer that there was an error.
         }
       });
-    });
 
     resetButton.addEventListener('click', function(e) {
       e.preventDefault();
