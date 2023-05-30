@@ -171,6 +171,10 @@
           // If we received a token, show the token ID.
           example.querySelector('.token').innerText = result.setupIntent.id;
           example.classList.add('submitted');
+        }else if (result.error.setupIntent.id) {
+          // If we received a token, show the token ID.
+          example.querySelector('.token').innerText = result.error.setupIntent.id;
+          example.classList.add('submitted');
         } else {
           // Otherwise, un-disable inputs.
           enableInputs();
