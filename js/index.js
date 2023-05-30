@@ -157,7 +157,6 @@
       };
 
       stripe.confirmSetup({
-        elements,
         clientSecret,
         confirmParams: {
           // Return URL where the customer should be redirected after the SetupIntent is confirmed.
