@@ -167,9 +167,9 @@
       .then(function(result) {
         example.classList.remove('submitting');
         console.log(result)
-        if (result.error && result.error.setupIntent && result.error.setupIntent.id) {
+        if (result.error && result.error.setup_intent && result.error.setup_intent.id) {
           // If we received a token, show the token ID.
-          example.querySelector('.token').innerText = result.error.setupIntent.id;
+          example.querySelector('.token').innerText = result.error.setup_intent.id;
           example.classList.add('submitted');
         } else if (result.setupIntent && result.setupIntent.id) {
           // If we received a token, show the token ID.
