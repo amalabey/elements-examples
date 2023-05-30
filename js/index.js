@@ -170,6 +170,7 @@
           // Inform the customer that there was an error.
         }
       });
+    });
 
     resetButton.addEventListener('click', function(e) {
       e.preventDefault();
@@ -192,4 +193,5 @@
   }
 
   registerElements([card], 'example1');
+
 })();
