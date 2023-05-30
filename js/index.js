@@ -156,11 +156,12 @@
         address_zip: zip ? zip.value : undefined,
       };
 
-      stripe.confirmSetup({
-        clientSecret,
-        confirmParams: {
-          // Return URL where the customer should be redirected after the SetupIntent is confirmed.
-          return_url: 'https://example.com',
+      stripe.confirmCardSetup(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: 'Jane Doe',
+          },
         },
       })
       .then(function(result) {
