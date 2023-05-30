@@ -139,24 +139,7 @@ function registerElements(elements, exampleName) {
         }
       }
     });
-
-    // Use Stripe.js to create a token. We only need to pass in one Element
-    // from the Element group in order to create a token. We can also pass
-    // in the additional customer data we collected in our form.
-  //   stripe.createToken(elements[0], additionalData).then(function(result) {
-  //     // Stop loading!
-  //     example.classList.remove('submitting');
-
-  //     if (result.token) {
-  //       // If we received a token, show the token ID.
-  //       example.querySelector('.token').innerText = result.token.id;
-  //       example.classList.add('submitted');
-  //     } else {
-  //       // Otherwise, un-disable inputs.
-  //       enableInputs();
-  //     }
-  //   });
-  // });
+  });
 
   resetButton.addEventListener('click', function(e) {
     e.preventDefault();
