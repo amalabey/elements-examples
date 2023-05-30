@@ -165,9 +165,20 @@
         },
       })
       .then(function(result) {
+        example.classList.remove('submitting');
         console.log(result)
         if (result.error) {
           // Inform the customer that there was an error.
+          console.log(result.error);
+        }else{
+          if (result.setupIntent.id) {
+            // If we received a token, show the token ID.
+            example.querySelector('.token').innerText = result.setupIntent.id;
+            example.classList.add('submitted');
+          } else {
+            // Otherwise, un-disable inputs.
+            enableInputs();
+          }
         }
       });
     });
