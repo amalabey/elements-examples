@@ -167,13 +167,13 @@
       .then(function(result) {
         example.classList.remove('submitting');
         console.log(result)
-        if (result.error && result.error.setup_intent && result.error.setup_intent.id) {
+        if (result.error && result.error.setup_intent && result.error.setup_intent.payment_method) {
           // If we received a token, show the token ID.
-          example.querySelector('.token').innerText = result.error.setup_intent.id;
+          example.querySelector('.token').innerText = result.error.setup_intent.payment_method;
           example.classList.add('submitted');
-        } else if (result.setupIntent && result.setupIntent.id) {
+        } else if (result.setupIntent && result.setupIntent.payment_method) {
           // If we received a token, show the token ID.
-          example.querySelector('.token').innerText = result.setupIntent.id;
+          example.querySelector('.token').innerText = result.setupIntent.payment_method;
           example.classList.add('submitted');
         }else {
           // Otherwise, un-disable inputs.
