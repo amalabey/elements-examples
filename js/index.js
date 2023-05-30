@@ -1,6 +1,10 @@
 'use strict';
 
-var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+const urlParams = new URLSearchParams(window.location.search);
+const publishableKey = urlParams.get('publishableKey');
+const clientSecret = urlParams.get('clientSecret');
+
+var stripe = Stripe(publishableKey);
 
 function registerElements(elements, exampleName) {
   var formClass = '.' + exampleName;
@@ -113,23 +117,46 @@ function registerElements(elements, exampleName) {
       address_zip: zip ? zip.value : undefined,
     };
 
+    stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: 'Jenny Rosen'
+        }
+      }
+    }).then(function(result) {
+      if (result.error) {
+        // Show error to your customer (for example, insufficient funds)
+        console.log(result.error.message);
+      } else {
+        // The payment has been processed!
+        if (result.paymentIntent.status === 'succeeded') {
+          // Show a success message to your customer
+          // There's a risk of the customer closing the window before callback
+          // execution. Set up a webhook or plugin to listen for the
+          // payment_intent.succeeded event that handles any business critical
+          // post-payment actions.
+        }
+      }
+    });
+
     // Use Stripe.js to create a token. We only need to pass in one Element
     // from the Element group in order to create a token. We can also pass
     // in the additional customer data we collected in our form.
-    stripe.createToken(elements[0], additionalData).then(function(result) {
-      // Stop loading!
-      example.classList.remove('submitting');
+  //   stripe.createToken(elements[0], additionalData).then(function(result) {
+  //     // Stop loading!
+  //     example.classList.remove('submitting');
 
-      if (result.token) {
-        // If we received a token, show the token ID.
-        example.querySelector('.token').innerText = result.token.id;
-        example.classList.add('submitted');
-      } else {
-        // Otherwise, un-disable inputs.
-        enableInputs();
-      }
-    });
-  });
+  //     if (result.token) {
+  //       // If we received a token, show the token ID.
+  //       example.querySelector('.token').innerText = result.token.id;
+  //       example.classList.add('submitted');
+  //     } else {
+  //       // Otherwise, un-disable inputs.
+  //       enableInputs();
+  //     }
+  //   });
+  // });
 
   resetButton.addEventListener('click', function(e) {
     e.preventDefault();
